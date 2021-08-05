@@ -62,11 +62,12 @@ namespace WpfI420ShaderEffect
                 };
                 YuvFrameDatas[index++] = yuvFrameData;
             }
+            fileStream.Dispose();
         }
         public void YuvFrameDataReceive(Action<IntPtr, IntPtr, IntPtr, int, int> callback)
         {
             int index = 0;
-            int interval = 25;
+            int interval = 20;
             new Thread(() =>
             {
                 while (true)

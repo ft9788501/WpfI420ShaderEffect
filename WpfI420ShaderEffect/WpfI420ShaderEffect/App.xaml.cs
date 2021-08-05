@@ -13,5 +13,15 @@ namespace WpfI420ShaderEffect
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            //MainWindow window = new MainWindow();
+            //window.Show();
+            //MainWindow1 window1 = new MainWindow1();
+            //window1.Show();
+            MainWindowStatic window = new MainWindowStatic();
+            window.Show();
+        }
     }
 }

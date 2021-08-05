@@ -18,10 +18,10 @@ namespace WpfI420ShaderEffect
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindowStatic1 : Window
     {
-        public static MainWindow Main { get; set; }
-        public MainWindow()
+        public static MainWindowStatic1 Main { get; set; }
+        public MainWindowStatic1()
         {
             InitializeComponent();
             Main = this;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -50,23 +51,42 @@ namespace WpfI420ShaderEffect
 
         DateTime lastDateTime = DateTime.Now;
 
-        static int textureWidth = 2200;
-        static int textureHeight = 1200;
-        static int videoWidth = 1920;
-        static int videoHeight = 1080;
-        YuvLoader yuvLoader = YuvLoader.LoadFromPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "test1080.yuv"), videoWidth, videoHeight);
+        static YuvSource yuvSource = new YuvSource()
+        {
+            Path = "352x288.yuv",
+            Width = 352,
+            Height = 288
+        };
+        //static YuvSource yuvSource = new YuvSource()
+        //{
+        //    Path = "test1080.yuv",
+        //    Width = 1920,
+        //    Height = 1080
+        //};
+        static int textureWidth = 1920;
+        static int textureHeight = 1080;
+        static int videoWidth = yuvSource.Width;
+        static int videoHeight = yuvSource.Height;
+        static YuvLoader yuvLoader = YuvLoader.LoadFromPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, yuvSource.Path), videoWidth, videoHeight);
         WriteableBitmap writeableBitmapY = new WriteableBitmap(textureWidth, textureHeight, 96, 96, PixelFormats.Gray8, null);
         WriteableBitmap writeableBitmapU = new WriteableBitmap(textureWidth / 2, textureHeight / 2, 96, 96, PixelFormats.Gray8, null);
         WriteableBitmap writeableBitmapV = new WriteableBitmap(textureWidth / 2, textureHeight / 2, 96, 96, PixelFormats.Gray8, null);
         IntPtr backBufferY;
         IntPtr backBufferU;
         IntPtr backBufferV;
+        int yuvCount = 0;
+        int renderCount = 0;
+        int wpfFenderCount = 0;
+        Stopwatch stopwatchYuv = new Stopwatch();
+        Stopwatch stopwatchRender = new Stopwatch();
+        Stopwatch stopwatchWpf = new Stopwatch();
 
         public I420ShaderEffect()
         {
             PixelShader = new()
             {
-                UriSource = new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "I420ShaderEffect.ps"), UriKind.Absolute)
+                UriSource = new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "I420ShaderScaleEffect.ps"), UriKind.Absolute)
+                //UriSource = new Uri(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "I420ShaderEffect.ps"), UriKind.Absolute)
             };
 
             backBufferY = writeableBitmapY.BackBuffer;
@@ -76,18 +96,16 @@ namespace WpfI420ShaderEffect
             TextureY = new ImageBrush(writeableBitmapY);
             TextureU = new ImageBrush(writeableBitmapU);
             TextureV = new ImageBrush(writeableBitmapV);
-
-            DispatcherTimer dispatcherTimer = new DispatcherTimer()
-            {
-                Interval = TimeSpan.FromMilliseconds(25)
-            };
-
+            stopwatchYuv.Start();
+            long lastYuv = 0;
+            long lastRedner = 0;
+            long lastWpf = 0;
             yuvLoader.YuvFrameDataReceive((y, u, v, w, h) =>
             {
-                if ((DateTime.Now - lastDateTime).TotalMilliseconds < 25)
-                {
-                    return;
-                }
+                //if ((DateTime.Now - lastDateTime).TotalMilliseconds < 25)
+                //{
+                //    return;
+                //}
                 lastDateTime = DateTime.Now;
                 unsafe
                 {
@@ -110,20 +128,70 @@ namespace WpfI420ShaderEffect
                         CopyMemory(newPoint, newVPoint, videoWidth / 2);
                     }
                 }
+                var interval = stopwatchYuv.ElapsedMilliseconds;
+                Debug.WriteLine($"yuv data : {interval - lastYuv}");
+                lastYuv = interval;
+                yuvCount++;
             });
-            dispatcherTimer.Tick += (s, e) =>
+
+            stopwatchRender.Start();
+            DispatcherTimer renderTimer = new DispatcherTimer()
             {
+                Interval = TimeSpan.FromMilliseconds(1)
+            };
+            renderTimer.Tick += (s, e) =>
+            {
+                if (renderCount == 0)
+                {
+                    yuvCount = 0;
+                }
                 writeableBitmapY.Lock();
-                writeableBitmapY.AddDirtyRect(new Int32Rect(0, 0, textureWidth, textureHeight));
+                writeableBitmapY.AddDirtyRect(new Int32Rect(0, 0, videoWidth, videoHeight));
                 writeableBitmapY.Unlock();
                 writeableBitmapU.Lock();
-                writeableBitmapU.AddDirtyRect(new Int32Rect(0, 0, textureWidth / 2, textureHeight / 2));
+                writeableBitmapU.AddDirtyRect(new Int32Rect(0, 0, videoWidth / 2, videoHeight / 2));
                 writeableBitmapU.Unlock();
                 writeableBitmapV.Lock();
-                writeableBitmapV.AddDirtyRect(new Int32Rect(0, 0, textureWidth / 2, textureHeight / 2));
+                writeableBitmapV.AddDirtyRect(new Int32Rect(0, 0, videoWidth / 2, videoHeight / 2));
                 writeableBitmapV.Unlock();
+                UpdateShaderValue(TextureYProperty);
+                UpdateShaderValue(TextureUProperty);
+                UpdateShaderValue(TextureVProperty);
+                renderCount++;
+                var interval = stopwatchRender.ElapsedMilliseconds;
+                Debug.WriteLine($"render data : {interval - lastRedner}");
+                lastRedner = interval;
             };
-            dispatcherTimer.Start();
+            renderTimer.Start();
+            stopwatchWpf.Start();
+            CompositionTarget.Rendering += (s, e) =>
+            {
+                wpfFenderCount++;
+                var interval = stopwatchWpf.ElapsedMilliseconds;
+                Debug.WriteLine($"wpf data : {interval - lastWpf}");
+                lastWpf = interval;
+            };
+            DateTime startTime = DateTime.Now;
+            DispatcherTimer fpsTimer = new DispatcherTimer()
+            {
+                Interval = TimeSpan.FromSeconds(5)
+            };
+            fpsTimer.Tick += (s, e) =>
+            {
+                var passTime = (DateTime.Now - startTime).TotalSeconds;
+                var renderFps = renderCount / passTime;
+                var wpfFps = wpfFenderCount / passTime;
+                var yuvFps = yuvCount / passTime;
+                if (MainWindow.Main != null)
+                {
+                    MainWindow.Main.Title = $"[Wpf Fps:{(int)wpfFps} Count:{wpfFenderCount}] -- [Render Fps:{(int)renderFps} Count:{renderCount}] -- [Yuv Fps:{(int)yuvFps} Count:{yuvCount}] -- Lost: {yuvCount - renderCount}";
+                }
+                if (MainWindow1.Main != null)
+                {
+                    MainWindow1.Main.Title = $"[Wpf Fps:{(int)wpfFps} Count:{wpfFenderCount}] -- [Render Fps:{(int)renderFps} Count:{renderCount}] -- [Yuv Fps:{(int)yuvFps} Count:{yuvCount}] -- Lost: {yuvCount - renderCount}";
+                }
+            };
+            fpsTimer.Start();
         }
     }
 }

@@ -1,0 +1,136 @@
+﻿<Window x:Class="WpfI420ShaderEffect.MainWindowStatic"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfI420ShaderEffect"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="1080" Width="1920">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="0" Grid.Column="0">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="0,0,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="0" Grid.Column="1">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="480,0,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="0" Grid.Column="2">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="960,0,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="0" Grid.Column="3">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="1440,0,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="1" Grid.Column="0">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="0,270,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="1" Grid.Column="1">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="480,270,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="1" Grid.Column="2">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="960,270,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="1" Grid.Column="3">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="1440,270,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="2" Grid.Column="0">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="0,540,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="2" Grid.Column="1">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="480,540,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="2" Grid.Column="2">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="960,540,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="2" Grid.Column="3">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="1440,540,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="3" Grid.Column="0">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="0,810,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="3" Grid.Column="1">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="480,810,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="3" Grid.Column="2">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="960,810,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+        <Border BorderBrush="Blue" BorderThickness="2" Grid.Row="3" Grid.Column="3">
+            <Rectangle Fill="Red" >
+                <Rectangle.Effect>
+                    <local:I420ShaderEffectStatic Viewbox="1440,810,480,270"/>
+                </Rectangle.Effect>
+            </Rectangle>
+        </Border>
+    </Grid>
+</Window>
