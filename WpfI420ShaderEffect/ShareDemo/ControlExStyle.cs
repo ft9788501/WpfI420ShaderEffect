@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace ShareDemo
 {
-    public partial class Form1 : Form
+    public partial class ControlExStyle : Form
     {
-        public Form1()
+        public ControlExStyle()
         {
             InitializeComponent();
         }

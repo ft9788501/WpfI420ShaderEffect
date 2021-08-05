@@ -1,0 +1,21 @@
+﻿<Window x:Class="ShareDemo.WindowAllowTranspartent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShareDemo"
+        xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Background="Transparent"
+        Title="WindowHwndHost" Height="450" Width="800">
+    <Canvas>
+        <Image Canvas.Left="12" Canvas.Top="12" Width="240" Height="400" Source="/Resources/sks.jfif" Stretch="Fill" />
+        <MediaElement Canvas.Left="310" Canvas.Top="12" Width="455" Height="400" LoadedBehavior="Play" Source="C:\Users\Jim.Jiang\Documents\WpfI420ShaderEffect\WpfI420ShaderEffect\ShareDemo\Resources\girl.gif" Stretch="None"/>
+        <Border Canvas.Left="97" Canvas.Top="57" Width="342" Height="309" Background="#88FF0000"/>
+        <WindowsFormsHost Canvas.Left="627" Canvas.Top="43">
+            <forms:Button Text="button1"/>
+        </WindowsFormsHost>
+    </Canvas>
+</Window>

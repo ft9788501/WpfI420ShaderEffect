@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace ShareDemo
 {
-    public partial class Form2 : Form
+    public partial class ControlTransparent : Form
     {
-        public Form2()
+        public ControlTransparent()
         {
             InitializeComponent();
         }

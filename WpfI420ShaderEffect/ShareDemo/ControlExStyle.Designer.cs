@@ -1,7 +1,7 @@
 ﻿
 namespace ShareDemo
 {
-    partial class Form2
+    partial class ControlExStyle
     {
         /// <summary>
         ///  Required designer variable.
@@ -31,7 +31,9 @@ namespace ShareDemo
         {
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.transparentControl1 = new ShareDemo.TransparentControl();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -52,16 +54,28 @@ namespace ShareDemo
             this.transparentControl1.TabIndex = 1;
             this.transparentControl1.Text = "transparentControl1";
             // 
-            // Form2
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pictureBox2.Image = global::ShareDemo.Properties.Resources.girl;
+            this.pictureBox2.Location = new System.Drawing.Point(310, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(455, 400);
+            this.pictureBox2.TabIndex = 3;
+            this.pictureBox2.TabStop = false;
+            // 
+            // ControlExStyle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.transparentControl1);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "Form2";
+            this.Controls.Add(this.pictureBox2);
+            this.Name = "ControlExStyle";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -70,6 +84,7 @@ namespace ShareDemo
 
         private System.Windows.Forms.PictureBox pictureBox1;
         private TransparentControl transparentControl1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 

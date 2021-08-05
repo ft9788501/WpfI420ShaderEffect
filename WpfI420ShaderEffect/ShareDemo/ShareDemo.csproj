@@ -4,27 +4,89 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <UseWpf>true</UseWpf>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Update="Form2.cs">
+    <None Remove="Resources\girl.gif" />
+    <None Remove="Resources\radiation.png" />
+    <None Remove="Resources\sks.jfif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\girl.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\radiation.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\sks.jfif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ControlExStyle.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ControlDirectUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormAnimationTween.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormAnimationDraw - Copy.Designer.cs">
+      <DependentUpon>FormAnimationDraw.Designer.cs</DependentUpon>
+    </Compile>
+    <Compile Update="FormAnimationDraw.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormAnimationControl - Copy.Designer.cs">
+      <DependentUpon>FormAnimationControl.Designer.cs</DependentUpon>
+    </Compile>
+    <Compile Update="FormLayeredDirectUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormLayered - Copy.Designer.cs">
+      <DependentUpon>FormLayered.Designer.cs</DependentUpon>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="WindowAllowTranspartent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Form1 - Copy - Copy.resx">
+      <DependentUpon>ControlTransparent.resx</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Update="Form1 - Copy.resx">
-      <DependentUpon>Form1.resx</DependentUpon>
+      <DependentUpon>ControlTransparent.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="FormAnimationControl - Copy.resx">
+      <DependentUpon>FormAnimationControl.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="FormAnimationDraw - Copy.resx">
+      <DependentUpon>FormAnimationDraw.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="FormLayered - Copy.resx">
+      <DependentUpon>FormLayered.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="WindowAllowTranspartent.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>
